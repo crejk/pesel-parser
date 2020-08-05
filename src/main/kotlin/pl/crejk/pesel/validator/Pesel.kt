@@ -37,7 +37,7 @@ enum class Sex {
 
         private fun Int.isEven(): Boolean = this % 2 == 0
 
-        private fun Int.isOdd(): Boolean = this % 2 == 0
+        private fun Int.isOdd(): Boolean = this % 2 == 1
     }
 }
 
