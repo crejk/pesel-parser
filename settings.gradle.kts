@@ -1,2 +1,1 @@
-rootProject.name = "pesel-validator"
-
+rootProject.name = "pesel-parser"
