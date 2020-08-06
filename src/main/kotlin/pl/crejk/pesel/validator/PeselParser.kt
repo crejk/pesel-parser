@@ -5,7 +5,7 @@ import pl.crejk.pesel.validator.fp.invalid
 import pl.crejk.pesel.validator.fp.valid
 import pl.crejk.pesel.validator.util.DateUtil
 
-typealias PeselResult = Validated<PeselValidationError, Pesel>
+typealias PeselResult = Validated<PeselParseError, Pesel>
 
 class PeselValidator {
 
@@ -13,13 +13,13 @@ class PeselValidator {
         val digits = input.split("").mapNotNull { it.toIntOrNull() }
 
         if (digits.size < PESEL_LENGTH) {
-            return PeselValidationError.WrongLength(input).invalid()
+            return PeselParseError.WrongLength(input).invalid()
         }
 
         val birthDate = DateUtil.calculateBirthDate(digits)
 
         if (!DateUtil.isValidBirthDate(birthDate)) {
-            return PeselValidationError.WrongDate(input).invalid()
+            return PeselParseError.WrongDate(input, birthDate).invalid()
         }
 
         val serial = Serial(digits.subList(6, 9).fold("", { acc, i -> acc + i }).toInt())
@@ -28,7 +28,7 @@ class PeselValidator {
         val controlDigit = this.calculateControlDigit(digits)
 
         if (controlDigit.value != digits.last()) {
-            return PeselValidationError.WrongControlDigit(input).invalid()
+            return PeselParseError.WrongControlDigit(input, controlDigit).invalid()
         }
 
         return Pesel(birthDate, serial, sex, controlDigit).valid()

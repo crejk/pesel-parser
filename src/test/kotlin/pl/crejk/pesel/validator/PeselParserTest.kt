@@ -2,7 +2,7 @@ package pl.crejk.pesel.validator
 
 import io.kotest.core.spec.style.FunSpec
 
-class PeselValidatorTest : FunSpec({
+class PeselParserTest : FunSpec({
     val validator = PeselValidator()
 
     test("valid pesel for years 1900-1900") {
@@ -30,26 +30,26 @@ class PeselValidatorTest : FunSpec({
     test("pesel with wrong length") {
         val peselInput = "0001019713"
 
-        validator.validate(peselInput) shouldBeInvalid PeselValidationError.WrongLength(peselInput)
+        validator.validate(peselInput) shouldBeInvalid PeselParseError.WrongLength(peselInput)
     }
 
     test("pesel with wrong control digit") {
         val peselInput = "00010197133"
 
-        validator.validate(peselInput) shouldBeInvalid PeselValidationError.WrongControlDigit(peselInput)
+        validator.validate(peselInput) shouldBeInvalid PeselParseError.WrongControlDigit(peselInput, ControlDigit(2))
     }
 
     test("pesel with wrong date - given month does not exist") {
-        // birthDate 001701 -> 2000/17/01
+        // birthDate 001701 -> 1900/17/01
         val peselInput = "00170197131"
 
-        validator.validate(peselInput) shouldBeInvalid PeselValidationError.WrongDate(peselInput)
+        validator.validate(peselInput) shouldBeInvalid PeselParseError.WrongDate(peselInput, BirthDate(Year(1900), Month(17), Day(0x1)))
     }
 
     test("pesel with wrong date - given day does not exist") {
-        // birthDate 000230 -> 2000/02/30
+        // birthDate 000230 -> 1900/02/30
         val peselInput = "00023097133"
 
-        validator.validate(peselInput) shouldBeInvalid PeselValidationError.WrongDate(peselInput)
+        validator.validate(peselInput) shouldBeInvalid PeselParseError.WrongDate(peselInput, BirthDate(Year(1900), Month(0x2), Day(30)))
     }
 })
