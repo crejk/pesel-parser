@@ -11,12 +11,12 @@ infix fun <T> Validated<*, T>.shouldBeValid(value: T) = this should beValid(valu
 
 fun <V> beValid(v: V) = object : Matcher<Validated<*, V>> {
     override fun test(value: Validated<*, V>): MatcherResult =
-        MatcherResult(value == v.valid(), "$value should be Valid(v=$v)", "$value should not be Valid(v=$v)")
+        MatcherResult(value == v.valid(), "$value should be Valid(value=$v)", "$value should not be Valid(value=$v)")
 }
 
 infix fun <E> Validated<E, *>.shouldBeInvalid(value: E) = this should beInvalid(value)
 
 fun <E> beInvalid(e: E) = object : Matcher<Validated<E, *>> {
     override fun test(value: Validated<E, *>): MatcherResult =
-        MatcherResult(value == e.invalid(), "$value should be Invalid(e=$e)", "$value should not be Invalid(e=$e)")
+        MatcherResult(value == e.invalid(), "$value should be Invalid(error=$e)", "$value should not be Invalid(error=$e)")
 }

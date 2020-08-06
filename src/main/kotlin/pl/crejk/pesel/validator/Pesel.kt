@@ -1,5 +1,8 @@
 package pl.crejk.pesel.validator
 
+import pl.crejk.pesel.validator.util.isEven
+import pl.crejk.pesel.validator.util.isOdd
+
 data class Pesel(
     val birthDate: BirthDate,
     val serial: Serial,
@@ -13,7 +16,7 @@ data class BirthDate(
     val day: Day
 ) {
 
-    override fun toString(): String = "$year/$month/$day"
+    override fun toString(): String = "${year.value}/${month.value}/${day.value}"
 }
 
 inline class Year(val value: Int)
@@ -27,17 +30,15 @@ inline class Serial(val value: Int)
 enum class Sex {
 
     MAN,
-    WOMAN,
-    UNKNOWN,
-    ;
+    WOMAN;
 
     companion object {
 
-        operator fun invoke(value: Int): Sex = if (value.isEven()) WOMAN else if (value.isOdd()) MAN else UNKNOWN
-
-        private fun Int.isEven(): Boolean = this % 2 == 0
-
-        private fun Int.isOdd(): Boolean = this % 2 == 1
+        operator fun invoke(value: Int): Sex = when {
+            value.isEven() -> WOMAN
+            value.isOdd() -> MAN
+            else -> throw IllegalArgumentException() //should never happen
+        }
     }
 }
 
