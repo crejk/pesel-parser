@@ -1,4 +1,4 @@
-package pl.crejk.pesel.validator.util
+package pl.crejk.pesel.parser.util
 
 internal fun Int.isEven(): Boolean = this % 2 == 0
 

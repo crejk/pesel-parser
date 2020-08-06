@@ -1,9 +1,9 @@
-package pl.crejk.pesel.validator.util
+package pl.crejk.pesel.parser.util
 
-import pl.crejk.pesel.validator.BirthDate
-import pl.crejk.pesel.validator.Day
-import pl.crejk.pesel.validator.Month
-import pl.crejk.pesel.validator.Year
+import pl.crejk.pesel.parser.BirthDate
+import pl.crejk.pesel.parser.Day
+import pl.crejk.pesel.parser.Month
+import pl.crejk.pesel.parser.Year
 import java.text.ParseException
 import java.text.SimpleDateFormat
 

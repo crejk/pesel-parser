@@ -1,4 +1,4 @@
-package pl.crejk.pesel.validator.fp
+package pl.crejk.pesel.parser.fp
 
 sealed class Validated<out E, out V> {
 

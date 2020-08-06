@@ -1,9 +1,9 @@
-package pl.crejk.pesel.validator
+package pl.crejk.pesel.parser
 
-import pl.crejk.pesel.validator.fp.Validated
-import pl.crejk.pesel.validator.fp.invalid
-import pl.crejk.pesel.validator.fp.valid
-import pl.crejk.pesel.validator.util.DateUtil
+import pl.crejk.pesel.parser.fp.Validated
+import pl.crejk.pesel.parser.fp.invalid
+import pl.crejk.pesel.parser.fp.valid
+import pl.crejk.pesel.parser.util.DateUtil
 
 typealias PeselResult = Validated<PeselParseError, Pesel>
 

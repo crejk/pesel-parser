@@ -1,4 +1,4 @@
-package pl.crejk.pesel.validator
+package pl.crejk.pesel.parser
 
 sealed class PeselParseError(val message: String) {
 

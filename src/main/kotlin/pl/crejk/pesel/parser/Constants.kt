@@ -1,4 +1,4 @@
-package pl.crejk.pesel.validator
+package pl.crejk.pesel.parser
 
 internal const val PESEL_LENGTH = 11
 

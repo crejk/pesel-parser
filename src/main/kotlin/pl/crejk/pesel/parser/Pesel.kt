@@ -1,7 +1,7 @@
-package pl.crejk.pesel.validator
+package pl.crejk.pesel.parser
 
-import pl.crejk.pesel.validator.util.isEven
-import pl.crejk.pesel.validator.util.isOdd
+import pl.crejk.pesel.parser.util.isEven
+import pl.crejk.pesel.parser.util.isOdd
 
 data class Pesel(
     val birthDate: BirthDate,

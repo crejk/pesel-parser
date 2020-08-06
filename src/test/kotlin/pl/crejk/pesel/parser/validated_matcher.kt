@@ -1,11 +1,11 @@
-package pl.crejk.pesel.validator
+package pl.crejk.pesel.parser
 
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
-import pl.crejk.pesel.validator.fp.Validated
-import pl.crejk.pesel.validator.fp.invalid
-import pl.crejk.pesel.validator.fp.valid
+import pl.crejk.pesel.parser.fp.Validated
+import pl.crejk.pesel.parser.fp.invalid
+import pl.crejk.pesel.parser.fp.valid
 
 infix fun <T> Validated<*, T>.shouldBeValid(value: T) = this should beValid(value)
 

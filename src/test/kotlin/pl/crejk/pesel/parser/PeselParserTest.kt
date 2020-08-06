@@ -1,4 +1,4 @@
-package pl.crejk.pesel.validator
+package pl.crejk.pesel.parser
 
 import io.kotest.core.spec.style.FunSpec
 
