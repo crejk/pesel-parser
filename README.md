@@ -14,7 +14,13 @@ result.fold({ error ->
     println(error.message)
 }, { pesel ->
     println(pesel)
-}): T
+}): Unit
+
+result.fold({ error ->
+    error.message
+}, { pesel ->
+    pesel.toString()
+}): String
 
 result.getOrElse { throw RuntimeException(it.message) }: Pesel
 result.toOptional(): Optional<Pesel>
