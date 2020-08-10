@@ -7,7 +7,7 @@ import pl.crejk.pesel.parser.util.DateUtil
 
 typealias PeselResult = Validated<PeselParseError, Pesel>
 
-class PeselValidator {
+class PeselParser {
 
     fun validate(input: String): PeselResult {
         val digits = input.split("").mapNotNull { it.toIntOrNull() }

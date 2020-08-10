@@ -3,7 +3,7 @@ package pl.crejk.pesel.parser
 import io.kotest.core.spec.style.FunSpec
 
 class PeselParserTest : FunSpec({
-    val validator = PeselValidator()
+    val validator = PeselParser()
 
     test("valid pesel for years 1900-1900") {
         val peselInput = "00010197132"
