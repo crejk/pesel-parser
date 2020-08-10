@@ -12,7 +12,7 @@ class PeselValidator {
     fun validate(input: String): PeselResult {
         val digits = input.split("").mapNotNull { it.toIntOrNull() }
 
-        if (digits.size < PESEL_LENGTH) {
+        if (digits.size != PESEL_LENGTH) {
             return PeselParseError.WrongLength(input).invalid()
         }
 
