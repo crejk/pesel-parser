@@ -27,8 +27,10 @@ class PeselParser {
 
         val controlDigit = this.calculateControlDigit(digits)
 
-        if (controlDigit.value != digits.last()) {
-            return PeselParseError.WrongControlDigit(input, controlDigit).invalid()
+        val lastDigit = digits.last()
+
+        if (controlDigit.value != lastDigit) {
+            return PeselParseError.WrongControlDigit(input, lastDigit).invalid()
         }
 
         return Pesel(birthDate, serial, sex, controlDigit).valid()
