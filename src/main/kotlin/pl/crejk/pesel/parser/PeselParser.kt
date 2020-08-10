@@ -9,7 +9,7 @@ typealias PeselResult = Validated<PeselParseError, Pesel>
 
 class PeselParser {
 
-    fun validate(input: String): PeselResult {
+    fun parse(input: String): PeselResult {
         val digits = input.split("").mapNotNull { it.toIntOrNull() }
 
         if (digits.size != PESEL_LENGTH) {
