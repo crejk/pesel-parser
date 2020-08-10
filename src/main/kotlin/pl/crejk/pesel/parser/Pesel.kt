@@ -37,7 +37,7 @@ enum class Sex {
         operator fun invoke(value: Int): Sex = when {
             value.isEven() -> WOMAN
             value.isOdd() -> MAN
-            else -> throw IllegalArgumentException() //should never happen
+            else -> throw IllegalArgumentException() // should never happen
         }
     }
 }

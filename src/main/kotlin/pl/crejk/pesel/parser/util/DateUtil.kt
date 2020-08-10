@@ -42,7 +42,7 @@ internal object DateUtil {
         4, 5 -> calculateYear(2100, year)
         6, 7 -> calculateYear(2200, year)
         8, 9 -> calculateYear(1800, year)
-        else -> throw IllegalArgumentException() //should never happen
+        else -> throw IllegalArgumentException() // should never happen
     }
 
     private fun calculateYear(century: Int, year: Pair<Int, Int>): Year =
@@ -54,7 +54,7 @@ internal object DateUtil {
         4, 5 -> calculateMonth(month, 40)
         6, 7 -> calculateMonth(month, 60)
         8, 9 -> calculateMonth(month, 80)
-        else -> throw IllegalArgumentException() //should never happen
+        else -> throw IllegalArgumentException() // should never happen
     }
 
     private fun calculateMonth(month: Pair<Int, Int>, i: Int): Month =
