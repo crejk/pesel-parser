@@ -11,10 +11,14 @@ repositories {
     mavenCentral()
 }
 
+val vavrVersion = "0.10.2"
+val kotestVersion = "4.3.1"
+
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:4.3.1")
-    testImplementation("io.kotest:kotest-runner-console-jvm:4.3.1")
+    implementation("io.vavr:vavr-kotlin:${vavrVersion}")
+
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:${kotestVersion}")
 }
 
 tasks.withType<Test> {
@@ -24,5 +28,16 @@ tasks.withType<Test> {
 val compileKotlin: KotlinCompile by tasks
 
 compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+    javaParameters = true
+    allWarningsAsErrors = false
     freeCompilerArgs = listOf("-Xinline-classes")
+}
+
+val compileTestKotlin: KotlinCompile by tasks
+
+compileTestKotlin.kotlinOptions.apply {
+    jvmTarget = "1.8"
+    javaParameters = true
+    allWarningsAsErrors = false
 }

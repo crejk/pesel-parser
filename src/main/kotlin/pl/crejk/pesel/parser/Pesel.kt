@@ -6,7 +6,7 @@ import pl.crejk.pesel.parser.util.isOdd
 data class Pesel(
     val birthDate: BirthDate,
     val serial: Serial,
-    val sex: Sex,
+    val gender: Gender,
     val controlDigit: ControlDigit
 )
 
@@ -27,14 +27,14 @@ inline class Day(val value: Int)
 
 inline class Serial(val value: Int)
 
-enum class Sex {
+enum class Gender {
 
     MAN,
     WOMAN;
 
     companion object {
 
-        operator fun invoke(value: Int): Sex = when {
+        operator fun invoke(value: Int): Gender = when {
             value.isEven() -> WOMAN
             value.isOdd() -> MAN
             else -> throw IllegalArgumentException() // should never happen

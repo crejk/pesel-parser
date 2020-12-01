@@ -7,18 +7,7 @@
 ## usage
 ```kotlin
 val parser = PeselParser()
-val result = parser.parse("64092555585"): PeselResult -> Validated<PeselParseError, Pesel>
-
-result.onValid { pesel ->
-    println(pesel)
-}: Validated<PeselParseError, Pesel>
-
-result.fold({ error ->
-    println(error.message)
-}, { pesel ->
-    println(pesel)
-}): Unit
-
+val result = parser.parse("64092555585"): PeselResult -> Validated<PeselParseFailure, Pesel>
 result.fold({ error ->
     error.message
 }, { pesel ->
@@ -26,7 +15,7 @@ result.fold({ error ->
 }): String
 
 result.getOrElse { throw RuntimeException(it.message) }: Pesel
-result.toOptional(): Optional<Pesel>
+result.toOption(): Option<Pesel>
 result.orNull(): Pesel?
 result.unsafe(): Pesel // if invalid throw IllegalStateException
 ```
