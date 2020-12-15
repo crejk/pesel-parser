@@ -1,11 +1,10 @@
 package pl.crejk.pesel.parser
 
-import io.vavr.collection.List
-import pl.crejk.pesel.parser.fp.*
-import pl.crejk.pesel.parser.util.DateUtil
+import io.vavr.control.Validation
+import io.vavr.kotlin.invalid
+import io.vavr.kotlin.list
 
-typealias PeselResult = Validated<PeselParseFailure, Pesel>
-typealias KotlinList<E> = kotlin.collections.List<E>
+typealias PeselResult = Validation<PeselParseFailure.MultipleFailures, Pesel>
 
 class PeselParser {
 
@@ -13,39 +12,19 @@ class PeselParser {
         val digits = input.split("")
             .mapNotNull { it.toIntOrNull() }
 
-        val birthDate = DateUtil.calculateBirthDate(digits)
+        //TODO MOVE VALIDATION
+        if (digits.size != Constants.PESEL_LENGTH) {
+            return invalid(PeselParseFailure.MultipleFailures(list(PeselParseFailure.WrongLength)))
+        }
+
         val serial = Serial(digits.subList(6, 9).fold("", { acc, i -> acc + i }).toInt())
-        val sex = Gender(digits[digits.lastIndex - 1])
+        val gender = Gender(digits[digits.lastIndex - 1])
         val controlDigit = this.calculateControlDigit(digits)
 
-        val failures = this.validate(input, digits, birthDate, controlDigit)
-
-        return if (failures.isEmpty) {
-            Pesel(birthDate, serial, sex, controlDigit).valid()
-        } else {
-            failures
-                .toNonEmptyUnsafe()
-                .invalid()
-                .mapInvalid { PeselParseFailure.MultipleFailures(it) }
-        }
+        return PeselValidator.validate(digits, serial, gender, controlDigit)
     }
 
-    private fun validate(
-        input: String,
-        digits: KotlinList<Int>,
-        birthDate: BirthDate,
-        controlDigit: ControlDigit
-    ): List<PeselParseFailure> =
-        List.empty<PeselParseFailure>()
-            .appendWhen(digits.size != Constants.PESEL_LENGTH) { PeselParseFailure.WrongLength(input) }
-            .appendWhen(!DateUtil.isValidBirthDate(birthDate)) { PeselParseFailure.WrongDate(input, birthDate) }
-            .appendWhen(controlDigit.value != digits.last()) {
-                PeselParseFailure.WrongControlDigit(
-                    input,
-                    digits.last()
-                )
-            }
-
-    private fun calculateControlDigit(digits: KotlinList<Int>): ControlDigit =
-        ControlDigit(10 - Constants.WEIGHTS.mapIndexed { index, weight -> digits[index] * weight }.sum() % 10)
+    // TODO MOVE LOGIC
+    private fun calculateControlDigit(digits: List<Int>): Int =
+        10 - Constants.WEIGHTS.mapIndexed { index, weight -> digits[index] * weight }.sum() % 10
 }

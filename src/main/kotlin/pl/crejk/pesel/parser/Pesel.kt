@@ -2,28 +2,14 @@ package pl.crejk.pesel.parser
 
 import pl.crejk.pesel.parser.util.isEven
 import pl.crejk.pesel.parser.util.isOdd
+import java.time.LocalDate
 
 data class Pesel(
-    val birthDate: BirthDate,
+    val birthDate: LocalDate,
     val serial: Serial,
     val gender: Gender,
     val controlDigit: ControlDigit
 )
-
-data class BirthDate(
-    val year: Year,
-    val month: Month,
-    val day: Day
-) {
-
-    override fun toString(): String = "${year.value}/${month.value}/${day.value}"
-}
-
-inline class Year(val value: Int)
-
-inline class Month(val value: Int)
-
-inline class Day(val value: Int)
 
 inline class Serial(val value: Int)
 
