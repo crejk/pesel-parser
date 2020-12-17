@@ -9,14 +9,14 @@
 val parser = PeselParser()
 val result = parser.parse("64092555585"): PeselResult -> Validation<PeselParseFailure, Pesel>
 
-result.fold({ error ->
-    error.message
+result.fold<T>({ error ->
+    error.description
 }, { pesel ->
     pesel.toString()
 }): String
 
-result.getOrElse { throw RuntimeException(it.message) }: Pesel
+result.getOrElseGet { throw RuntimeException(it.description()) }: Pesel
 result.toOption(): Option<Pesel>
 result.orNull(): Pesel?
-result.unsafe(): Pesel // if invalid throw IllegalStateException
+result.get(): Pesel // if invalid throw NoSuchElementException
 ```

@@ -7,7 +7,7 @@ import io.vavr.kotlin.valid
 import pl.crejk.pesel.parser.util.DateUtil
 import java.time.LocalDate
 
-internal typealias PeselValidation <T> = Validation<PeselParseFailure, T>
+internal typealias PeselValidation<T> = Validation<PeselParseFailure, T>
 
 internal object PeselValidator {
 
