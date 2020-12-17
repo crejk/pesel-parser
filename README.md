@@ -7,7 +7,7 @@
 ## usage
 ```kotlin
 val parser = PeselParser()
-val result = parser.parse("64092555585"): PeselResult -> Validated<PeselParseFailure, Pesel>
+val result = parser.parse("64092555585"): PeselResult -> Validation<PeselParseFailure, Pesel>
 
 result.fold({ error ->
     error.message
