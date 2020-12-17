@@ -33,9 +33,7 @@ class PeselParserTest : FunSpec({
     test("pesel with wrong length") {
         val peselInput = "002101692"
 
-        parser.parse(peselInput).error shouldBe multipleFailures(
-            PeselParseFailure.WrongLength
-        )
+        parser.parse(peselInput).error shouldBe PeselParseFailure.WrongLength
     }
 
     test("pesel with wrong date - given month does not exist") {

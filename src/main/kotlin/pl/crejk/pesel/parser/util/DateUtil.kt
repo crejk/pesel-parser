@@ -1,9 +1,10 @@
 package pl.crejk.pesel.parser.util
 
+import io.vavr.collection.List
 import io.vavr.control.Try
 import io.vavr.kotlin.Try
+import io.vavr.kotlin.toVavrList
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 internal object DateUtil {
 
@@ -22,7 +23,7 @@ internal object DateUtil {
     }
 
     private fun List<Int>.toDateDigits(): List<Pair<Int, Int>> =
-        this.chunked(2).take(3).flatMap { it.zipWithNext() }
+        this.chunked(2).take(3).flatMap { it.zipWithNext() }.toVavrList()
 
     private fun calculateYear(year: Pair<Int, Int>, month: Pair<Int, Int>): Int = when (month.first) {
         0, 1 -> calculateYear(1900, year)
